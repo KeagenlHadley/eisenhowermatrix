@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eisenhower Matrix</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .quadrant { border: 1px solid #ccc; padding: 10px; }
+        .task { display: flex; justify-content: space-between; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Eisenhower Matrix</h1>
+    
+    <div>
+        <input type="text" id="taskInput" placeholder="Enter a task">
+        <select id="quadrantSelect">
+            <option value="urgent-important">Urgent & Important</option>
+            <option value="not-urgent-important">Not Urgent & Important</option>
+            <option value="urgent-not-important">Urgent & Not Important</option>
+            <option value="not-urgent-not-important">Not Urgent & Not Important</option>
+        </select>
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div class="matrix">
+        <div id="urgent-important" class="quadrant">
+            <h2>Urgent & Important</h2>
+        </div>
+        <div id="not-urgent-important" class="quadrant">
+            <h2>Not Urgent & Important</h2>
+        </div>
+        <div id="urgent-not-important" class="quadrant">
+            <h2>Urgent & Not Important</h2>
+        </div>
+        <div id="not-urgent-not-important" class="quadrant">
+            <h2>Not Urgent & Not Important</h2>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            var input = document.getElementById('taskInput');
+            var quadrantSelect = document.getElementById('quadrantSelect');
+            var task = input.value;
+            var quadrant = quadrantSelect.value;
+
+            if (task) {
+                var quadrantElement = document.getElementById(quadrant);
+                var taskDiv = document.createElement('div');
+                taskDiv.className = 'task';
+                taskDiv.innerHTML = task + ' <button onclick="this.parentNode.remove()">✓</button>';
+                quadrantElement.appendChild(taskDiv);
+                input.value = '';
+            }
+        }
+
+        document.getElementById('taskInput').onkeypress = function(e) {
+            if (e.keyCode === 13) {
+                addTask();
+            }
+        };
+    </script>
+</body>
+</html>
